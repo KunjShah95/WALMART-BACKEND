@@ -1,0 +1,31 @@
+Manufacturer_Name,City,Latitude,Longitude,Supported_Materials,Certifications,Max_Weekly_Capacity
+EcoMaker1,Jaipur,26.903709959601635,75.74872851317254,"Recycled Wool, Bamboo Viscose","FSC, B Corp, GRS",3318
+EcoMaker2,Milan,45.45451897013596,9.16849448546299,"Recycled Wool, Recycled Polyester",B Corp,1101
+EcoMaker3,Portland,45.464715883855725,-122.66889110684158,"Recycled Wool, Bamboo Viscose, Organic Cotton","GRS, OEKO-TEX, B Corp",130
+EcoMaker4,Coimbatore,11.033359127249179,76.93787058972907,"Bamboo Viscose, Recycled Denim","B Corp, FSC",3998
+EcoMaker5,Milan,45.45961211151139,9.190147616435443,"Cork Fabric, TENCEL Lyocell, Organic Cotton",FSC,4496
+EcoMaker6,Jaipur,26.949948443160817,75.82966388662699,"Hemp, Cork Fabric, Recycled Denim, Recycled Wool","GOTS, FSC",2280
+EcoMaker7,Chennai,13.118885262930068,80.23488436735143,"Bamboo Viscose, Cork Fabric, Hemp","B Corp, GRS",2262
+EcoMaker8,Milan,45.45593042225178,9.186115937706612,"Cork Fabric, Recycled Polyester",GRS,3426
+EcoMaker9,Barcelona,41.350288006468105,2.223247938883281,Recycled Wool,FSC,3897
+EcoMaker10,Barcelona,41.385331132912405,2.149437471148734,"Recycled Wool, Recycled Polyester","GOTS, GRS",2672
+EcoMaker11,Barcelona,41.41245376315938,2.166162684922096,"TENCEL Lyocell, Bamboo Viscose, Recycled Polyester",FSC,4435
+EcoMaker12,Portland,45.4595526853233,-122.69737491102373,"TENCEL Lyocell, Hemp, Organic Cotton, Recycled Polyester","FSC, OEKO-TEX, GOTS",3615
+EcoMaker13,Los Angeles,34.011013145662496,-118.21273379446755,Hemp,"B Corp, Fair Trade, GRS",1477
+EcoMaker14,Ahmedabad,23.037866508214922,72.56230128348004,"Organic Cotton, Bamboo Viscose",GRS,1522
+EcoMaker15,Ahmedabad,23.042242857444215,72.53580044348558,"TENCEL Lyocell, Cork Fabric","GRS, B Corp",4602
+EcoMaker16,Chennai,13.036727103668893,80.30965594534254,Hemp,"GOTS, Fair Trade",651
+EcoMaker17,Milan,45.499663389436556,9.238840749373344,"Recycled Denim, TENCEL Lyocell, Recycled Polyester, Hemp",GOTS,4033
+EcoMaker18,London,51.52255628096395,-0.08876513247463773,"TENCEL Lyocell, Recycled Polyester","B Corp, GRS",137
+EcoMaker19,New York,40.68341027208502,-74.0511743463228,"Organic Cotton, Recycled Polyester","FSC, OEKO-TEX",972
+EcoMaker20,New York,40.671177941011024,-74.00072295489436,"Recycled Polyester, Hemp, Organic Cotton, Recycled Wool","B Corp, OEKO-TEX, GOTS",249
+EcoMaker21,London,51.50268909895003,-0.14710797120529784,"Recycled Denim, Hemp, Recycled Polyester, Cork Fabric",OEKO-TEX,3759
+EcoMaker22,Milan,45.45826550584448,9.146422934812039,"Cork Fabric, Hemp","FSC, Fair Trade",2678
+EcoMaker23,Chennai,13.0497378659894,80.25636562263497,TENCEL Lyocell,Fair Trade,1675
+EcoMaker24,Jaipur,26.962203325842857,75.74093316107192,"Recycled Wool, Bamboo Viscose, Organic Cotton, Hemp","GOTS, Fair Trade, GRS",1764
+EcoMaker25,London,51.501775046984584,-0.10384016017517016,TENCEL Lyocell,OEKO-TEX,329
+EcoMaker26,Milan,45.451803306436936,9.170006355739098,"TENCEL Lyocell, Recycled Polyester","GOTS, Fair Trade",2435
+EcoMaker27,Ahmedabad,23.001246300470577,72.61421927247542,"Organic Cotton, Recycled Wool, TENCEL Lyocell","B Corp, FSC, GRS",473
+EcoMaker28,Los Angeles,34.06365515291464,-118.2641124940782,"Organic Cotton, Cork Fabric, Recycled Wool","FSC, GOTS",2580
+EcoMaker29,Milan,45.44814873767709,9.156636530538918,"Hemp, Bamboo Viscose","GRS, B Corp",1634
+EcoMaker30,New York,40.72979678220607,-74.00190655705384,"Hemp, Recycled Wool","GOTS, FSC, OEKO-TEX",4360

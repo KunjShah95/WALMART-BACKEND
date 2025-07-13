@@ -1,0 +1,9 @@
+Material,Product_Types,Certifications,CO2_kg_per_kg,Water_L_per_kg,Region_Availability,Biodegradable,Recycled
+Organic Cotton,"T-shirts, Bedding, Towels","GOTS, OEKO-TEX",2.1,2700,"India, USA",Yes,No
+Recycled Polyester,"Activewear, Bags, Jackets",GRS,1.5,100,"China, USA, Europe",No,Yes
+Hemp,"T-shirts, Bags, Upholstery",GOTS,1.8,400,"India, China",Yes,No
+TENCEL Lyocell,"Shirts, Dresses, Linens","FSC, OEKO-TEX",1.4,250,"Austria, USA",Yes,No
+Recycled Wool,"Sweaters, Blankets, Coats",GRS,2.5,150,"Italy, UK, India",Yes,Yes
+Bamboo Viscose,"Socks, Undergarments, Towels",OEKO-TEX,2.3,500,"China, India",Yes,No
+Cork Fabric,"Wallets, Bags, Accessories",FSC,0.9,50,"Portugal, Spain",Yes,No
+Recycled Denim,"Jeans, Jackets, Bags",GRS,1.6,200,"USA, India",Yes,Yes

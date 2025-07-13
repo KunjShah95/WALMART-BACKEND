@@ -1,0 +1,9 @@
+Material,Product_Types,Certifications,CO2_kg_per_kg,Water_L_per_kg,Region_Availability,Biodegradable,Recycled,live_co2e_kg,co2e_fetch_error
+Organic Cotton,"T-shirts, Bedding, Towels","GOTS, OEKO-TEX",2.1,2700,"India, USA",Yes,No,,API failed for Organic Cotton
+Recycled Polyester,"Activewear, Bags, Jackets",GRS,1.5,100,"China, USA, Europe",No,Yes,,API failed for Recycled Polyester
+Hemp,"T-shirts, Bags, Upholstery",GOTS,1.8,400,"India, China",Yes,No,,API failed for Hemp
+TENCEL Lyocell,"Shirts, Dresses, Linens","FSC, OEKO-TEX",1.4,250,"Austria, USA",Yes,No,,API failed for TENCEL Lyocell
+Recycled Wool,"Sweaters, Blankets, Coats",GRS,2.5,150,"Italy, UK, India",Yes,Yes,,API failed for Recycled Wool
+Bamboo Viscose,"Socks, Undergarments, Towels",OEKO-TEX,2.3,500,"China, India",Yes,No,,API failed for Bamboo Viscose
+Cork Fabric,"Wallets, Bags, Accessories",FSC,0.9,50,"Portugal, Spain",Yes,No,,API failed for Cork Fabric
+Recycled Denim,"Jeans, Jackets, Bags",GRS,1.6,200,"USA, India",Yes,Yes,,API failed for Recycled Denim

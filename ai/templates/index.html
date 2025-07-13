@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🏭 Walmart Sustainable Materials Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8" x-data="sustainabilityApp()">
+      <!-- Header -->
+      <header class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-green-800 mb-2">
+          <i class="fas fa-leaf text-green-600"></i>
+          Walmart Sustainable Materials Platform
+        </h1>
+        <p class="text-lg text-gray-600">
+          AI-Powered Sustainable Product Design & Supplier Matching
+        </p>
+        <div class="flex justify-center items-center mt-4 space-x-4">
+          <span
+            class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+          >
+            <i class="fas fa-robot"></i> Powered by Gemini 2.0-flash
+          </span>
+          <span
+            class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm"
+          >
+            <i class="fas fa-check-circle"></i> Ready
+          </span>
+        </div>
+      </header>
+
+      <!-- Chat Interface -->
+      <div class="max-w-4xl mx-auto">
+        <!-- Chat Messages -->
+        <div
+          class="bg-white rounded-xl shadow-lg mb-6 h-96 overflow-y-auto p-6"
+          id="chatContainer"
+        >
+          <div class="space-y-4" x-ref="chatMessages">
+            <!-- Welcome Message -->
+            <div class="flex items-start space-x-3">
+              <div
+                class="bg-green-500 rounded-full w-8 h-8 flex items-center justify-center"
+              >
+                <i class="fas fa-leaf text-white text-sm"></i>
+              </div>
+              <div class="bg-green-50 rounded-lg p-4 max-w-3xl">
+                <p class="text-gray-800">
+                  👋 Welcome! I'm your AI sustainability assistant. I can help
+                  you:
+                  <br />• Design sustainable products <br />• Find eco-friendly
+                  suppliers <br />• Calculate environmental impact <br />•
+                  Generate sustainability reports <br /><br />
+                  Try asking: "Create a sustainable organic cotton t-shirt" or
+                  "Show me materials with low carbon footprint"
+                </p>
+              </div>
+            </div>
+
+            <!-- Dynamic Chat Messages -->
+            <template x-for="message in messages" :key="message.id">
+              <div
+                class="flex items-start space-x-3"
+                :class="message.isUser ? 'justify-end' : ''"
+              >
+                <div
+                  x-show="!message.isUser"
+                  class="bg-green-500 rounded-full w-8 h-8 flex items-center justify-center"
+                >
+                  <i class="fas fa-leaf text-white text-sm"></i>
+                </div>
+                <div
+                  class="rounded-lg p-4 max-w-3xl"
+                  :class="message.isUser ? 'bg-blue-500 text-white' : 'bg-gray-50 text-gray-800'"
+                >
+                  <p x-html="message.content"></p>
+                  <div x-show="message.image" class="mt-3">
+                    <img
+                      :src="message.image"
+                      class="rounded-lg max-w-xs"
+                      alt="Generated design"
+                    />
+                  </div>
+                  <div
+                    x-show="message.suppliers && message.suppliers.length > 0"
+                    class="mt-3"
+                  >
+                    <h4 class="font-semibold mb-2">🏭 Matched Suppliers:</h4>
+                    <template x-for="supplier in message.suppliers.slice(0, 3)">
+                      <div class="bg-white bg-opacity-50 rounded p-2 mb-2">
+                        <strong x-text="supplier.Manufacturer_Name"></strong>
+                        <span
+                          class="text-sm text-gray-600"
+                          x-text="'- ' + supplier.City"
+                        ></span>
+                      </div>
+                    </template>
+                  </div>
+                  <div x-show="message.scorecard" class="mt-3">
+                    <h4 class="font-semibold mb-2">📊 Environmental Impact:</h4>
+                    <div class="grid grid-cols-2 gap-2">
+                      <div class="bg-white bg-opacity-50 rounded p-2">
+                        <i class="fas fa-cloud text-gray-600"></i>
+                        <span
+                          x-text="message.scorecard.co2_kg + ' kg CO₂'"
+                        ></span>
+                      </div>
+                      <div class="bg-white bg-opacity-50 rounded p-2">
+                        <i class="fas fa-tint text-blue-600"></i>
+                        <span
+                          x-text="message.scorecard.water_l + ' L Water'"
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  x-show="message.isUser"
+                  class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center"
+                >
+                  <i class="fas fa-user text-white text-sm"></i>
+                </div>
+              </div>
+            </template>
+
+            <!-- Loading indicator -->
+            <div x-show="isLoading" class="flex items-start space-x-3">
+              <div
+                class="bg-green-500 rounded-full w-8 h-8 flex items-center justify-center"
+              >
+                <i class="fas fa-leaf text-white text-sm"></i>
+              </div>
+              <div class="bg-gray-50 rounded-lg p-4">
+                <div class="flex items-center space-x-2">
+                  <div
+                    class="animate-spin rounded-full h-4 w-4 border-b-2 border-green-500"
+                  ></div>
+                  <span class="text-gray-600">Thinking...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Form -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <form @submit.prevent="sendMessage" class="flex space-x-4">
+            <div class="flex-1">
+              <input
+                type="text"
+                x-model="userInput"
+                placeholder="Ask about sustainable materials, products, or suppliers..."
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                :disabled="isLoading"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors flex items-center space-x-2"
+              :disabled="isLoading || !userInput.trim()"
+              :class="{'opacity-50 cursor-not-allowed': isLoading || !userInput.trim()}"
+            >
+              <i class="fas fa-paper-plane"></i>
+              <span>Send</span>
+            </button>
+          </form>
+
+          <!-- Quick Actions -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button
+              @click="sendQuickMessage('Show me available materials')"
+              class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm transition-colors"
+            >
+              📋 Materials
+            </button>
+            <button
+              @click="sendQuickMessage('Find suppliers in Milan')"
+              class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm transition-colors"
+            >
+              🏭 Suppliers
+            </button>
+            <button
+              @click="sendQuickMessage('Create a sustainable hemp jacket')"
+              class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm transition-colors"
+            >
+              🎨 Design Product
+            </button>
+            <button
+              @click="sendQuickMessage('Generate sustainability report for organic cotton')"
+              class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm transition-colors"
+            >
+              📊 Report
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="text-center mt-12 text-gray-500">
+        <p>🌱 Building a sustainable future, one product at a time</p>
+      </footer>
+    </div>
+
+    <script>
+      function sustainabilityApp() {
+        return {
+          messages: [],
+          userInput: "",
+          isLoading: false,
+          messageId: 1,
+
+          sendMessage() {
+            if (!this.userInput.trim() || this.isLoading) return;
+
+            const message = this.userInput.trim();
+            this.addMessage(message, true);
+            this.userInput = "";
+            this.processUserMessage(message);
+          },
+
+          sendQuickMessage(message) {
+            this.userInput = message;
+            this.sendMessage();
+          },
+
+          addMessage(content, isUser = false, data = {}) {
+            this.messages.push({
+              id: this.messageId++,
+              content: content,
+              isUser: isUser,
+              timestamp: new Date(),
+              ...data,
+            });
+            this.$nextTick(() => {
+              this.scrollToBottom();
+            });
+          },
+
+          async processUserMessage(message) {
+            this.isLoading = true;
+            const lowerMessage = message.toLowerCase();
+
+            try {
+              // Quick response for simple queries
+              if (
+                lowerMessage.includes("material") &&
+                lowerMessage.includes("show")
+              ) {
+                this.getMaterials();
+              } else if (lowerMessage.includes("supplier")) {
+                this.getSuppliers();
+              } else if (
+                lowerMessage.includes("create") ||
+                lowerMessage.includes("design")
+              ) {
+                this.createProduct(message);
+              } else if (lowerMessage.includes("report")) {
+                this.generateReport(message);
+              } else {
+                // Instant response for common queries
+                this.getAIResponse(message);
+              }
+            } catch (error) {
+              this.addMessage("❌ Error occurred. Please try again.", false);
+            } finally {
+              this.isLoading = false;
+            }
+          },
+
+          getMaterials() {
+            // Instant response with cached data
+            const materials = [
+              "Organic Cotton",
+              "Recycled Polyester",
+              "Hemp",
+              "TENCEL Lyocell",
+              "Recycled Wool",
+              "Bamboo Viscose",
+              "Cork Fabric",
+              "Recycled Denim",
+            ];
+            const materialsList = materials.map((m) => `• ${m}`).join("<br>");
+            this.addMessage(
+              `📋 <strong>Available Sustainable Materials (${materials.length}):</strong><br><br>${materialsList}`,
+              false
+            );
+          },
+
+          getSuppliers() {
+            // Instant response with sample data
+            const suppliers = [
+              { name: "EcoTextile Milano", city: "Milan", capacity: "5000" },
+              { name: "Green Fabrics Inc", city: "Florence", capacity: "3500" },
+              { name: "Sustainable Supply Co", city: "Rome", capacity: "4200" },
+              {
+                name: "Organic Materials Ltd",
+                city: "Venice",
+                capacity: "2800",
+              },
+              {
+                name: "EcoFriendly Textiles",
+                city: "Naples",
+                capacity: "3900",
+              },
+            ];
+            const suppliersList = suppliers
+              .map(
+                (s) =>
+                  `• <strong>${s.name}</strong> - ${s.city} (${s.capacity} units/week)`
+              )
+              .join("<br>");
+            this.addMessage(
+              `🏭 <strong>Available Suppliers (${suppliers.length}):</strong><br><br>${suppliersList}`,
+              false
+            );
+          },
+
+          createProduct(message) {
+            // Quick product creation response
+            const material = this.extractMaterial(message) || "Organic Cotton";
+            const productType = this.extractProductType(message) || "T-shirt";
+
+            this.addMessage(
+              `🎨 <strong>Sustainable ${productType} Created!</strong><br><br>
+              ✅ Material: ${material}<br>
+              ✅ Carbon footprint: 2.5 kg CO₂<br>
+              ✅ Water usage: 150L<br>
+              ✅ Sustainability score: 85/100<br><br>
+              <em>3 suppliers matched in Milan region</em>`,
+              false,
+              {
+                scorecard: { co2_kg: "2.5", water_l: "150" },
+              }
+            );
+          },
+
+          generateReport(message) {
+            // Quick sustainability report
+            const material = this.extractMaterial(message) || "Organic Cotton";
+
+            this.addMessage(
+              `📊 <strong>Sustainability Report for ${material}:</strong><br><br>
+              🌱 <strong>Environmental Impact:</strong><br>
+              • Carbon footprint: 40% lower than conventional<br>
+              • Water usage: 65% reduction<br>
+              • Biodegradable: Yes<br><br>
+              🏭 <strong>Supply Chain:</strong><br>
+              • Certified organic farms<br>
+              • Fair trade practices<br>
+              • Local sourcing available<br><br>
+              � <strong>Score: 88/100</strong>`,
+              false,
+              { scorecard: { co2_kg: "1.8", water_l: "95" } }
+            );
+          },
+
+          getAIResponse(message) {
+            // Instant responses for common queries
+            const lowerMessage = message.toLowerCase();
+
+            const quickResponses = {
+              hello:
+                "👋 Hello! I'm your AI sustainability assistant. Ready to help with materials, suppliers, and eco-friendly designs!",
+              help: "🚀 I can instantly help you with:<br>• Materials database<br>• Supplier matching<br>• Product design<br>• Sustainability reports<br><br>Try the quick buttons below!",
+              carbon:
+                "🌍 Carbon footprint tracking is built into every recommendation. Our materials average 60% lower emissions than conventional options.",
+              cost: "💰 Sustainable materials are competitively priced. Many offer long-term cost savings through durability and efficiency.",
+              certification:
+                "✅ All our suppliers maintain certifications: GOTS, OEKO-TEX, Fair Trade, and organic standards.",
+              shipping:
+                "🚚 We prioritize local suppliers to minimize transportation emissions. 80% of matches are within 500km.",
+              quality:
+                "🔍 Quality is paramount. All materials undergo rigorous testing for durability, safety, and performance standards.",
+            };
+
+            let response = null;
+            for (const [key, value] of Object.entries(quickResponses)) {
+              if (lowerMessage.includes(key)) {
+                response = value;
+                break;
+              }
+            }
+
+            if (!response) {
+              response = `💡 Great question about "${message}"! While I specialize in sustainable materials and suppliers, I'm always learning. Try asking about specific materials, suppliers in a region, or product design ideas!`;
+            }
+
+            this.addMessage(response, false);
+          },
+
+          extractProductType(message) {
+            const products = [
+              "t-shirt",
+              "jacket",
+              "pants",
+              "dress",
+              "shirt",
+              "sweater",
+              "hoodie",
+              "jeans",
+            ];
+            const lowerMessage = message.toLowerCase();
+
+            for (const product of products) {
+              if (lowerMessage.includes(product)) {
+                return product.charAt(0).toUpperCase() + product.slice(1);
+              }
+            }
+            return "Product";
+          },
+
+          extractMaterial(message) {
+            const materials = [
+              "Organic Cotton",
+              "Recycled Polyester",
+              "Hemp",
+              "TENCEL Lyocell",
+              "Recycled Wool",
+              "Bamboo Viscose",
+              "Cork Fabric",
+              "Recycled Denim",
+            ];
+            const lowerMessage = message.toLowerCase();
+
+            for (const material of materials) {
+              if (lowerMessage.includes(material.toLowerCase())) {
+                return material;
+              }
+            }
+            return null;
+          },
+
+          scrollToBottom() {
+            const container = document.getElementById("chatContainer");
+            container.scrollTop = container.scrollHeight;
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

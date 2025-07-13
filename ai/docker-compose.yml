@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  walmart-app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - HF_TOKEN=${HF_TOKEN}
+      - CLIMATIQ_API_KEY=${CLIMATIQ_API_KEY}
+    volumes:
+      - ./static:/app/static
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
